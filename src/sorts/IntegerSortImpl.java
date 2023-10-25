@@ -11,8 +11,8 @@ public class IntegerSortImpl {
          * i --> how many elements to be sorted
          * j --> bubble the current element,
          * arr.length - 1 --> the top limitation of j, then j+1 can reach index arr.length-1
-         * arr.length - 1 - i --> i stand for how many elements have already been sorted,
-         * it is no need to visit them again in a bubbleSort
+         * arr.length - 1 - i --> i stands for how many elements have already been sorted,
+         * there is no need for visiting them again in a bubbleSort
          */
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length - 1 - i; j++) {
@@ -26,8 +26,9 @@ public class IntegerSortImpl {
     public static void selectionSort(int[] arr) {
         /*
          * the array may like this:
-         * unsorted -- i -- chaos
-         * the i is the first unsorted element
+         * sorted -- i -- chaos
+         * [--sorted--][i--chaos]
+         * the i is the first chaos element
          */
         for (int i = 0; i < arr.length - 1; i++) {
             var minIdx = i;
@@ -41,7 +42,8 @@ public class IntegerSortImpl {
     public static void insertSort(int[] arr) {
         /*
          * the array may like this:
-         * unsorted -- i -- chaos
+         * sorted -- i -- chaos
+         * [--sorted---i][chaos]
          * the i is the last sorted element
          */
         for (int i = 0; i < arr.length - 1; i++) {
