@@ -6,7 +6,7 @@ public class Bits {
     }
 
     /*
-     * question: there are only two different numbers which appear odd times among the giving array,
+     * question: there are only two different numbers which appear odd times among the given array,
      * while others appear even times
      * you must find them in O(N) time complexity and O(1) space complexity
      */

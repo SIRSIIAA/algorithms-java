@@ -80,9 +80,6 @@ public class IntegerSortImplTest {
     @Test
     public void testHeapSort() {
         var size = 6;
-//        var min = 1;
-//        var max = 1000;
-//        var res = RandomGenerator.generate1DIntegerArray(size, min, max);
         var res = new int[]{
                 3, 7, 6, 8, 5, 12
         };

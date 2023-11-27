@@ -19,6 +19,10 @@ public class IntegerSortImpl {
          * arr.length - 1 --> the top limitation of j, then j+1 can reach index arr.length-1
          * arr.length - 1 - i --> i stands for how many elements have already been sorted,
          * there is no need for visiting them again in a bubbleSort
+         *
+         * stable
+         *
+         * time complexity N^2
          */
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length - 1 - i; j++) {
@@ -35,6 +39,10 @@ public class IntegerSortImpl {
          * sorted -- i -- chaos
          * [--sorted--][i--chaos]
          * the i is the first chaos element
+         *
+         * unstable
+         *
+         * time complexity N^2
          */
         for (int i = 0; i < arr.length - 1; i++) {
             var minIdx = i;
@@ -51,6 +59,10 @@ public class IntegerSortImpl {
          * sorted -- i -- chaos
          * [--sorted---i][chaos]
          * the i is the last sorted element
+         *
+         * stable
+         *
+         * time complexity N^2
          */
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = i + 1; j > 0 && arr[j] < arr[j - 1]; j--) {
@@ -64,6 +76,19 @@ public class IntegerSortImpl {
     }
 
     private static void processMergeSort(int[] arr, int l, int r) {
+        /*
+         * stable
+         *
+         * time complexity NLOGN
+         * space complexity N
+         *
+         * CAUTIONS!
+         * 1. we can turn the space complexity of a mergeSort to O1 by using inner cache
+         * however we will lose the stability
+         * 2. someone acclaims that they can turn the space complexity of a mergeSort an in-place sort
+         * however the time complexity will be ON2
+         * wft are you doing?
+         */
         if (l == r) {
             return;
         }
@@ -95,6 +120,17 @@ public class IntegerSortImpl {
     }
 
     private static void processQuickSort(int[] arr, int l, int r) {
+        /*
+         * unstable, because partition is unstable
+         * [6,7,6,6,3],while the partition value is 5
+         * while swapping the first 6 with the last 3, it is unstable
+         *
+         * time complexity NLOGN
+         * space complexity NLOGN
+         *
+         * CAUTIONS!
+         * 1. we can turn a quickSort stable by using 01 stable sort
+         */
         if (l >= r) {
             return;
         }
@@ -105,6 +141,15 @@ public class IntegerSortImpl {
     }
 
     private static int[] partition(int[] arr, int l, int r) {
+        /*
+         * another traditional question is:
+         * 1. put all given odd number on the left of the given array
+         * 2. likely, put all given even number on the right of the given array
+         * 3. the relative sort can not be changed!
+         * 4. implements an algorithms with N time complexity and 1 space complexity
+         *
+         * the answer is impossible
+         */
         var leftBound = l - 1;
         var rightBound = r + 1;
         var randomIdx = RandomGenerator.generateNumber(l, r);
@@ -130,18 +175,21 @@ public class IntegerSortImpl {
         return new int[]{leftBound, rightBound};
     }
 
+    /*
+     * FIXME
+     */
     public static void heapSort(int[] arr) {
         processHeapSort(arr, 0, arr.length - 1);
     }
 
     private static void processHeapSort(int[] arr, int l, int r) {
-        for (int i = l; i < r + 1; i++) {
-            heapInsert(arr, i);
-        }
-        do {
-            IntegerUtils.swap(arr, l, r--);
-            heapify(arr, l, r);
-        } while (r > 0);
+        /*
+         * unstable
+         * [5,4,4,6],while heapify the last 6, it is unstable
+         *
+         * time complexity NLOGN
+         */
+
     }
 
     private static void heapInsert(int[] arr, int idx) {
@@ -151,42 +199,24 @@ public class IntegerSortImpl {
         }
     }
 
-    /*
-     * FIXME
-     */
     private static void heapify(int[] arr, int idx, int heapSize) {
-/*
-        while (idx < heapSize) {
-            var leftChild = (idx << 1) + 1;
-            var rightChild = (idx << 1) + 2;
-            var largerIdx = idx;
-            if (leftChild < heapSize) {
-                largerIdx =  arr[leftChild] > arr[rightChild] ? leftChild : rightChild;
-            }else{
 
-            }
-            IntegerUtils.swap(arr, idx, arr[idx] > arr[largerIdx] ? idx : largerIdx);
-            idx = largerIdx;
-        }
-*/
     }
 
     /*
      * un sort based algorithms
      */
-    public static void main(String[] args) {
-        var ints = new int[]{
-                121, 345, 234, 141, 255, 602
-        };
-        radixSort(ints);
-        System.out.println(Arrays.toString(ints));
-    }
 
     public static void radixSort(int[] arr) {
         processRadixSort(arr);
     }
 
     private static void processRadixSort(int[] arr) {
+        /*
+         * stable
+         *
+         * time complexity NLOGN
+         */
         var buckets = new int[10];
         var tmp = new int[arr.length];
         var cnt = findMaxLength(arr);
@@ -214,8 +244,8 @@ public class IntegerSortImpl {
     }
 
     private static void fillBuckets(int[] arr, int[] buckets, int bit) {
-        for (int i = 0; i < arr.length; i++) {
-            var code = getBit(arr[i], bit);
+        for (int j : arr) {
+            var code = getBit(j, bit);
             buckets[code]++;
         }
         for (int i = 1; i < buckets.length; i++) {
@@ -233,6 +263,6 @@ public class IntegerSortImpl {
         /*
          * clear the buckets after use
          */
-        Arrays.fill(buckets,0);
+        Arrays.fill(buckets, 0);
     }
 }

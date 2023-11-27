@@ -17,6 +17,9 @@ public class BinarySearch {
         return -1;
     }
 
+    /*
+     * FIXME
+     */
     public static int binarySearchFindTheLeftBound(int[] arr, int target) {
         var left = 0;
         var right = arr.length - 1;
@@ -29,7 +32,6 @@ public class BinarySearch {
                 right = mid - 1;
             }
         }
-//        FIX ME
         return -1;
     }
 }
