@@ -29,6 +29,7 @@ public class BinarySearch {
                 right = mid - 1;
             }
         }
-        return arr[mid] == target ? mid : mid == arr.length - 1 ? -1 : arr[mid + 1] == target ? mid + 1 : -1;
+//        FIX ME
+        return -1;
     }
 }

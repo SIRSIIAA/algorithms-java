@@ -3,8 +3,6 @@ package search.test;
 import org.junit.jupiter.api.Test;
 import search.BinarySearch;
 
-import java.util.Arrays;
-
 public class BinarySearchTest {
     @Test
     public void binarySearchTest() {
